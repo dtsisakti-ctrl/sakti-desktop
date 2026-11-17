@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "examguard-server"
+version = "0.1.0a10"
+description = "ExamGuard Server — Phase 1c-2: tenancy, accounts, exams, registration, state & timing engine, client protocol, integration API, proctoring back office, Admin Web"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.120",
+  "uvicorn>=0.30",
+  "sqlalchemy>=2.0",
+  "psycopg[binary]>=3.1",
+  "alembic>=1.13",
+  "pydantic>=2.6",
+  "pydantic-settings>=2.2",
+  "email-validator>=2.1",
+  "argon2-cffi>=23.1",
+  "typer>=0.12",
+  "cryptography>=42",
+  "websockets>=12",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[project.scripts]
+examguard = "examguard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+examguard = ["py.typed", "webui/site/*", "webui/site/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
